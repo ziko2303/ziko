@@ -31,6 +31,13 @@
             color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Touch optimization */
+        a, button, .btn, .social-link, .hamburger {
+            -webkit-tap-highlight-color: rgba(0, 255, 136, 0.2);
         }
 
         /* Animated background */
@@ -65,6 +72,7 @@
             filter: blur(80px);
             opacity: 0.15;
             animation: float 20s infinite ease-in-out;
+            will-change: transform;
         }
 
         .orb-1 {
@@ -171,6 +179,35 @@
 
         .nav-links a:hover::before {
             width: 100%;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--accent-1);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
         }
 
         /* Hero Section */
@@ -348,7 +385,7 @@
         /* Skills Grid */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
             gap: 30px;
             margin-bottom: 60px;
         }
@@ -422,7 +459,7 @@
         /* Projects Grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
             gap: 40px;
         }
 
@@ -483,7 +520,7 @@
         /* Certifications */
         .cert-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
             gap: 25px;
         }
 
@@ -684,53 +721,295 @@
             .timeline-dot {
                 left: 0;
             }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .nav-content {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            /* Mobile Navigation */
+            .hamburger {
+                display: flex;
+            }
+
             .nav-links {
-                gap: 20px;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                max-width: 300px;
+                background: var(--secondary-bg);
+                flex-direction: column;
+                padding: 80px 30px 30px;
+                gap: 30px;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+                z-index: 100;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 18px;
+                padding: 10px 0;
+            }
+
+            .nav-links a::before {
+                bottom: 0;
+            }
+
+            /* Hero Section */
+            .hero {
+                min-height: auto;
+                padding: 60px 0;
             }
 
             .hero-text h1 {
-                font-size: 42px;
+                font-size: 36px;
+            }
+
+            .hero-text .name,
+            .hero-text .tagline {
+                display: inline;
+            }
+
+            .hero-text .tagline::before {
+                content: " - ";
+                color: var(--text-secondary);
             }
 
             .hero-subtitle {
-                font-size: 20px;
+                font-size: 18px;
             }
 
-            .section-title {
-                font-size: 38px;
+            .hero-description {
+                font-size: 16px;
             }
 
-            .projects-grid,
-            .cert-grid {
-                grid-template-columns: 1fr;
+            .code-display {
+                padding: 20px;
             }
 
-            .contact-section {
-                padding: 50px 30px;
+            .code-content {
+                font-size: 12px;
             }
 
             .cta-buttons {
                 flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Sections */
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-header {
+                margin-bottom: 50px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .section-subtitle {
+                font-size: 16px;
+            }
+
+            /* Skills Grid */
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .skill-card {
+                padding: 30px 20px;
+            }
+
+            .skill-icon {
+                font-size: 40px;
+            }
+
+            /* Projects Grid */
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .project-header {
+                padding: 30px 20px;
+            }
+
+            .project-card h3 {
+                font-size: 22px;
+            }
+
+            .project-body {
+                padding: 20px;
+            }
+
+            /* Certifications */
+            .cert-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .cert-card {
+                padding: 20px;
+            }
+
+            .cert-badge {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            .cert-info h4 {
+                font-size: 16px;
+            }
+
+            /* Timeline */
+            .timeline-content {
+                width: calc(100% - 30px);
+                margin-left: 30px !important;
+                padding: 20px;
+            }
+
+            .timeline-content h3 {
+                font-size: 20px;
+            }
+
+            .timeline-date {
+                font-size: 12px;
+            }
+
+            /* Contact Section */
+            .contact-section {
+                padding: 40px 20px;
+                border-radius: 20px;
+            }
+
+            .contact-section h2 {
+                font-size: 32px;
+            }
+
+            .contact-section p {
+                font-size: 16px;
+            }
+
+            .social-link {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            /* Footer */
+            footer {
+                padding: 30px 0;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 20px;
+            }
+
+            .hero-text h1 {
+                font-size: 28px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .section-subtitle {
+                font-size: 14px;
+            }
+
+            .skill-card h3,
+            .project-card h3 {
+                font-size: 20px;
+            }
+
+            .tech-tag {
+                font-size: 11px;
+                padding: 5px 12px;
+            }
+
+            .contact-section h2 {
+                font-size: 28px;
+            }
+
+            .contact-section p {
+                font-size: 14px;
+            }
+
+            /* Reduce animation complexity for performance */
+            .gradient-orb {
+                opacity: 0.08;
+                animation: none;
+            }
+
+            .code-rain {
+                display: none;
             }
         }
 
         /* Scroll Animation */
         .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 1;
+            transform: translateY(0);
             transition: opacity 0.6s, transform 0.6s;
         }
 
-        .fade-in.visible {
+        /* Only apply animation if JavaScript is enabled */
+        html.js-enabled .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        html.js-enabled .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
     </style>
 </head>
 <body>
+    <script>
+        // Add class immediately to prevent flash of invisible content
+        document.documentElement.classList.add('js-enabled');
+    </script>
+    
     <!-- Background Animation -->
     <div class="background-animation">
         <div class="gradient-orb orb-1"></div>
@@ -742,13 +1021,18 @@
     <nav>
         <div class="nav-content">
             <div class="logo">ziko01.dev</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#certifications">Certifications</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#contact">Contact</a></li>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+                <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+                <li><a href="#certifications" onclick="closeMenu()">Certifications</a></li>
+                <li><a href="#experience" onclick="closeMenu()">Experience</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -1172,7 +1456,7 @@
                     Whether you need a full-stack developer, AI solutions, or business intelligence expertise, let's connect!
                 </p>
                 <div class="contact-buttons">
-                    <a href="mailto:zain@ziko01.dev" class="social-link" title="Email">📧</a>
+                    <a href="/cdn-cgi/l/email-protection#d7adb6beb997adbebcb8e7e6f9b3b2a1" class="social-link" title="Email">📧</a>
                     <a href="https://github.com/ziko01" class="social-link" title="GitHub" target="_blank">💻</a>
                     <a href="https://linkedin.com/in/zainalhassani" class="social-link" title="LinkedIn" target="_blank">💼</a>
                     <a href="https://twitter.com/ziko01dev" class="social-link" title="Twitter" target="_blank">🐦</a>
@@ -1190,7 +1474,7 @@
     </footer>
 
     <!-- Scroll Animation Script -->
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Code rain animation
         function createCodeRain() {
             const background = document.querySelector('.background-animation');
@@ -1206,6 +1490,32 @@
                 background.appendChild(rain);
             }
         }
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            const nav = document.querySelector('nav');
+            
+            if (nav && navLinks && !nav.contains(e.target) && navLinks.classList.contains('active')) {
+                closeMenu();
+            }
+        });
 
         // Intersection Observer for fade-in animations
         const observerOptions = {
@@ -1227,7 +1537,15 @@
 
             // Observe all fade-in elements
             const fadeElements = document.querySelectorAll('.fade-in');
-            fadeElements.forEach(el => observer.observe(el));
+            fadeElements.forEach(el => {
+                // Check if element is already in viewport
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    // Element is visible, show it immediately
+                    el.classList.add('visible');
+                }
+                observer.observe(el);
+            });
 
             // Smooth scroll for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1248,10 +1566,4 @@
             const y = e.clientY / window.innerHeight;
 
             orbs.forEach((orb, index) => {
-                const speed = (index + 1) * 20;
-                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-            });
-        });
-    </script>
-</body>
-</html>
+                const speed = (index + 1)
