@@ -569,12 +569,13 @@
             max-width: 900px;
             margin: 0 auto;
             position: relative;
+            padding-left: 40px;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
-            left: 50%;
+            left: 0;
             top: 0;
             bottom: 0;
             width: 2px;
@@ -592,29 +593,26 @@
             border-radius: 15px;
             padding: 30px;
             backdrop-filter: blur(10px);
-            width: 45%;
+            width: 100%;
             transition: all 0.3s;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content {
-            margin-left: auto;
+            margin-left: 0;
         }
 
         .timeline-content:hover {
             border-color: var(--accent-1);
-            transform: scale(1.02);
+            transform: translateX(5px);
         }
 
         .timeline-dot {
             position: absolute;
-            left: 50%;
+            left: -40px;
             top: 20px;
             width: 20px;
             height: 20px;
             background: var(--accent-1);
             border-radius: 50%;
-            transform: translateX(-50%);
             box-shadow: 0 0 20px var(--accent-1);
+            z-index: 1;
         }
 
         .timeline-content h3 {
@@ -709,17 +707,21 @@
                 font-size: 56px;
             }
 
+            .timeline {
+                padding-left: 40px;
+            }
+
             .timeline::before {
                 left: 0;
             }
 
             .timeline-content {
-                width: calc(100% - 40px);
-                margin-left: 40px !important;
+                width: 100%;
+                margin-left: 0 !important;
             }
 
             .timeline-dot {
-                left: 0;
+                left: -40px;
             }
 
             .projects-grid {
@@ -890,10 +892,22 @@
             }
 
             /* Timeline */
+            .timeline {
+                padding-left: 30px;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
             .timeline-content {
-                width: calc(100% - 30px);
-                margin-left: 30px !important;
+                width: 100%;
+                margin-left: 0 !important;
                 padding: 20px;
+            }
+
+            .timeline-dot {
+                left: -30px;
             }
 
             .timeline-content h3 {
