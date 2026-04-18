@@ -7,20 +7,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #080c14;
+            --bg: #070a11;
             --bg2: #0d1220;
-            --surface: rgba(255,255,255,0.03);
-            --surface2: rgba(255,255,255,0.06);
-            --border: rgba(0,212,255,0.12);
-            --border2: rgba(0,212,255,0.25);
+            --surface: rgba(255,255,255,0.025);
+            --surface2: rgba(255,255,255,0.05);
+            --border: rgba(148,175,205,0.1);
+            --border2: rgba(0,212,255,0.22);
+            --border-soft: rgba(255,255,255,0.06);
             --accent: #00d4ff;
             --accent2: #00ff9d;
             --accent3: #7c3aed;
+            --gold: #ffd166;
             --warn: #ff6b35;
             --text: #f0f4ff;
             --text2: #8892a4;
             --text3: #4a5568;
-            --glow: 0 0 40px rgba(0,212,255,0.15);
+            --glow: 0 0 40px rgba(0,212,255,0.12);
+            --shadow-lg: 0 24px 48px rgba(0,0,0,0.4);
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -99,6 +102,16 @@
             transition: width 0.3s ease;
         }
         .nav-links a:hover::after { width: 100%; }
+        .nav-cta {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 18px; border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: var(--bg) !important; font-weight: 600; font-size: 13px;
+            text-decoration: none; letter-spacing: 0.01em;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,212,255,0.25); }
+        .nav-cta::after { display: none !important; }
         .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 200; }
         .hamburger span { width: 24px; height: 2px; background: var(--accent); border-radius: 2px; transition: all 0.3s; }
         .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
@@ -123,6 +136,7 @@
             font-weight: 800; line-height: 1.05;
             color: var(--text);
             margin-bottom: 16px;
+            letter-spacing: -1.5px;
         }
         .sec-desc { font-size: 17px; color: var(--text2); max-width: 560px; line-height: 1.7; }
         .sec-head { margin-bottom: 64px; }
@@ -384,6 +398,202 @@
         }
         .proj-features li:last-child { border-bottom: none; }
         .proj-features li::before { content: '→'; color: var(--accent2); flex-shrink: 0; }
+        .proj-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 10px 18px; border-radius: 8px;
+            background: rgba(0,212,255,0.08);
+            border: 1px solid var(--border2);
+            color: var(--accent);
+            font-size: 13px; font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            margin-top: 4px;
+        }
+        .proj-link:hover { background: var(--accent); color: var(--bg); transform: translateX(2px); }
+        .proj-link svg { width: 14px; height: 14px; }
+
+        /* ── FEATURED PROJECT ── */
+        .featured-project {
+            position: relative;
+            background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(124,58,237,0.04) 50%, rgba(0,255,157,0.04));
+            border: 1px solid var(--border2);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 36px;
+            box-shadow: var(--glow), var(--shadow-lg);
+        }
+        .featured-project::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 800px 400px at 80% 0%, rgba(0,212,255,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .fp-inner {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 48px;
+            padding: 48px;
+            position: relative;
+            align-items: center;
+        }
+        .fp-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(90deg, rgba(255,209,102,0.15), rgba(255,140,0,0.1));
+            border: 1px solid rgba(255,209,102,0.3);
+            border-radius: 100px;
+            padding: 6px 14px;
+            font-family: 'Space Mono', monospace; font-size: 11px;
+            color: var(--gold); letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            text-transform: uppercase; font-weight: 700;
+        }
+        .fp-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(32px, 4vw, 44px);
+            font-weight: 800; line-height: 1.05;
+            margin-bottom: 14px;
+            background: linear-gradient(90deg, var(--text) 40%, var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .fp-tagline {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px; color: var(--accent2);
+            letter-spacing: 0.08em; text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+        .fp-desc {
+            font-size: 16px; color: var(--text2);
+            line-height: 1.75; margin-bottom: 24px;
+        }
+        .fp-stats {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 1px; background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px; overflow: hidden;
+            margin-bottom: 28px;
+        }
+        .fp-stat {
+            background: rgba(13,18,32,0.6);
+            padding: 18px 12px; text-align: center;
+        }
+        .fp-stat-num {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 22px; font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        .fp-stat-label {
+            font-size: 10px; color: var(--text2);
+            margin-top: 6px; letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .fp-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+        .fp-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+        .fp-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 22px; border-radius: 10px;
+            font-size: 14px; font-weight: 600;
+            text-decoration: none; transition: all 0.25s;
+        }
+        .fp-btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: var(--bg);
+        }
+        .fp-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0,212,255,0.3); }
+        .fp-btn-outline {
+            background: transparent; color: var(--text);
+            border: 1px solid var(--border2);
+        }
+        .fp-btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+        .fp-visual {
+            position: relative;
+            min-height: 320px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(13,18,32,0.9), rgba(8,12,20,0.7));
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .fp-visual::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(0,212,255,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,212,255,0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+        }
+        .fp-core {
+            position: relative;
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,212,255,0.3) 0%, rgba(124,58,237,0.2) 40%, transparent 70%);
+            display: flex; align-items: center; justify-content: center;
+            animation: fpFloat 4s ease-in-out infinite;
+        }
+        @keyframes fpFloat {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .fp-core-inner {
+            width: 110px; height: 110px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent3));
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 44px; font-weight: 800;
+            color: var(--bg);
+            box-shadow:
+                0 0 60px rgba(0,212,255,0.6),
+                inset 0 0 20px rgba(255,255,255,0.2);
+            position: relative;
+            z-index: 2;
+        }
+        .fp-ring {
+            position: absolute; inset: -20px;
+            border-radius: 50%;
+            border: 1px dashed rgba(0,212,255,0.4);
+            animation: fpSpin 20s linear infinite;
+        }
+        .fp-ring.r2 {
+            inset: -40px;
+            border-color: rgba(0,255,157,0.25);
+            animation-duration: 30s;
+            animation-direction: reverse;
+        }
+        @keyframes fpSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .fp-orbit {
+            position: absolute;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            padding: 6px 12px;
+            background: rgba(13,18,32,0.8);
+            border: 1px solid var(--border2);
+            border-radius: 100px;
+            color: var(--accent);
+            backdrop-filter: blur(4px);
+            white-space: nowrap;
+        }
+        .fp-orbit.o1 { top: 14%; right: 8%; }
+        .fp-orbit.o2 { bottom: 18%; left: 6%; color: var(--accent2); border-color: rgba(0,255,157,0.3); }
+        .fp-orbit.o3 { top: 45%; right: 2%; color: #c792ea; border-color: rgba(199,146,234,0.3); }
+        .fp-live-badge {
+            position: absolute; top: 20px; left: 20px;
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 10px;
+            background: rgba(0,255,157,0.1);
+            border: 1px solid rgba(0,255,157,0.3);
+            border-radius: 100px;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px; color: var(--accent2);
+            letter-spacing: 0.08em; text-transform: uppercase;
+        }
+        .fp-live-badge .dot { width: 6px; height: 6px; background: var(--accent2); border-radius: 50%; box-shadow: 0 0 6px var(--accent2); animation: pulse 2s infinite; }
 
         /* ── CERTIFICATIONS ── */
         .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
@@ -569,6 +779,8 @@
             .hero-grid { grid-template-columns: 1fr; gap: 48px; }
             .about-grid { grid-template-columns: 1fr; gap: 40px; }
             .wrapper { padding: 0 24px; }
+            .fp-inner { grid-template-columns: 1fr; gap: 32px; padding: 36px; }
+            .fp-visual { min-height: 260px; order: -1; }
         }
         @media (max-width: 768px) {
             section { padding: 64px 0; }
@@ -583,11 +795,18 @@
             .stats-row { grid-template-columns: 1fr; }
             .contact-wrap { padding: 40px 24px; }
             .cw-body { padding: 20px; font-size: 12px; }
+            .fp-inner { padding: 28px; }
+            .fp-stats { grid-template-columns: repeat(2, 1fr); }
+            .fp-core { width: 140px; height: 140px; }
+            .fp-core-inner { width: 88px; height: 88px; font-size: 34px; }
+            .fp-orbit { font-size: 10px; padding: 4px 9px; }
         }
         @media (max-width: 480px) {
             .wrapper { padding: 0 16px; }
             .projects-grid { grid-template-columns: 1fr; }
             .cert-grid { grid-template-columns: 1fr; }
+            .fp-actions { flex-direction: column; align-items: stretch; }
+            .fp-btn { justify-content: center; }
         }
     </style>
 </head>
@@ -608,6 +827,10 @@
             <li><a href="#projects" onclick="closeNav()">Projects</a></li>
             <li><a href="#certifications" onclick="closeNav()">Certifications</a></li>
             <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+            <li><a href="#contact" class="nav-cta" onclick="closeNav()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                Hire Me
+            </a></li>
         </ul>
     </div>
 </nav>
@@ -891,8 +1114,72 @@
         <div class="sec-head fade-in">
             <div class="sec-label">Projects</div>
             <h2 class="sec-title">Key Projects</h2>
-            <p class="sec-desc">Real-world systems built to solve complex business and operational challenges.</p>
+            <p class="sec-desc">Real-world systems built to solve complex business and operational challenges — including a flagship AI platform deployed to production.</p>
         </div>
+
+        <!-- FEATURED PROJECT: JARVIS -->
+        <div class="featured-project fade-in">
+            <div class="fp-inner">
+                <div class="fp-content">
+                    <div class="fp-badge">
+                        ⭐ Featured · Latest Project
+                    </div>
+                    <div class="fp-tagline">// Personal AI Command Center</div>
+                    <h3 class="fp-title">JARVIS Platform</h3>
+                    <p class="fp-desc">
+                        A production AI platform that controls PCs, builds apps, runs virtual AI companies, and automates workflows across Windows, Android, iOS, and macOS. Features a visual workflow builder with 49 node types, 20 specialized agent roles, full voice control, and enterprise-grade authentication — all powered by a 720B-parameter model.
+                    </p>
+                    <div class="fp-stats">
+                        <div class="fp-stat">
+                            <div class="fp-stat-num">49</div>
+                            <div class="fp-stat-label">Workflow Nodes</div>
+                        </div>
+                        <div class="fp-stat">
+                            <div class="fp-stat-num">20</div>
+                            <div class="fp-stat-label">Agent Roles</div>
+                        </div>
+                        <div class="fp-stat">
+                            <div class="fp-stat-num">720B</div>
+                            <div class="fp-stat-label">Parameters</div>
+                        </div>
+                        <div class="fp-stat">
+                            <div class="fp-stat-num">4</div>
+                            <div class="fp-stat-label">Platforms</div>
+                        </div>
+                    </div>
+                    <div class="fp-tags tags">
+                        <span class="tag">Multi-Agent AI</span>
+                        <span class="tag">Workflow Automation</span>
+                        <span class="tag">Voice Control</span>
+                        <span class="tag">Cross-Platform</span>
+                        <span class="tag">JWT Auth</span>
+                        <span class="tag">Stripe Billing</span>
+                    </div>
+                    <div class="fp-actions">
+                        <a href="https://www.jarvice.digital/" target="_blank" rel="noopener" class="fp-btn fp-btn-primary">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            Visit Live Site
+                        </a>
+                        <a href="https://www.jarvice.digital/" target="_blank" rel="noopener" class="fp-btn fp-btn-outline">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            jarvice.digital
+                        </a>
+                    </div>
+                </div>
+                <div class="fp-visual">
+                    <span class="fp-live-badge"><span class="dot"></span>Live in Production</span>
+                    <div class="fp-core">
+                        <div class="fp-ring"></div>
+                        <div class="fp-ring r2"></div>
+                        <div class="fp-core-inner">J</div>
+                    </div>
+                    <span class="fp-orbit o1">⚡ Workflow Engine</span>
+                    <span class="fp-orbit o2">🤖 Multi-Agent</span>
+                    <span class="fp-orbit o3">🎤 Voice AI</span>
+                </div>
+            </div>
+        </div>
+
         <div class="projects-grid">
             <div class="proj-card fade-in">
                 <div class="proj-top">
